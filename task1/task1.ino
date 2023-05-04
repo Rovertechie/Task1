@@ -1,22 +1,26 @@
-int greenPin = 9;
-int redPin = 10;
-int potPin = A0;
-// Setup the pins for output
+int greenPin = 11;
+int bluePin = 10;
+int potPin = A2;
+
 void setup() {
   pinMode(greenPin, OUTPUT);
-  pinMode(redPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
 }
+
 void loop() {
-  int potValue = analogRead(potPin); 
-  if (potValue < 512) {
-    int greenValue = potValue / 2;
-    int redValue = 0;
+  int potValue = analogRead(potPin);  
+  int greenValue, blueValue;
+
+  if (potValue < 512) {  
+    greenValue = map(potValue, 0, 511, 0, 255);  
+    blueValue = 0;  
+  } else {  
+    int potRange = 1023 - 512; 
+    int potAdjusted = potValue - 512;
+    blueValue = map(potAdjusted, 0, potRange, 0, 255); 
+    greenValue = 0;  
   }
-  else {
-    // Set green LED brightness to maximum (255)
-    int greenValue = 255;
-    int redValue = (potValue - 512) / 2;
-  }
-  analogWrite(greenPin, greenValue);
-  analogWrite(redPin, redValue);
+
+  analogWrite(greenPin, greenValue);  
+  analogWrite(bluePin, blueValue);  
 }
