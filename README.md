@@ -1,2 +1,2 @@
-# Task1
+# tasks
 Various tasks using arduino uno
