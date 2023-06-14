@@ -15,7 +15,7 @@ void setup() {
 void loop() {
  unsigned long previousTime=millis();
  if(millis-previousTime>=currentTime){
-   detachInterrupt(digitalPinToInterrupt(encoderPinA));s
+   detachInterrupt(digitalPinToInterrupt(encoderPinA));
    float motorRpm=(float)(encoderTicks*600.0)/996.0;
  Serial.print("RPM is:");
  Serial.println(motorRpm);
