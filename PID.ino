@@ -21,7 +21,7 @@ void encoder() {
  Serial.print("RPM is:");
  Serial.println(motorRpm);
  previousTime=millis();
- encoderTicks=0;
+ encoderCount=0;
  attachInterrupt(digitalPinToInterrupt(encoderPinA),handleEncoderInterrupt, CHANGE);
  delay(100);
  }
@@ -32,10 +32,7 @@ void loop() {
  
   unsigned long currentTime2 = millis();
   double deltaTime = (currentTime2 - prevTime) / 1000.0; 
-  int encoderValue = encoderCount;
-  encoderCount = 0;
-
-  input = calculateRPM(encoderValue);
+  input = motorRpm;
   double error = setpoint - input;
   double proportional = kp * error;
   double integral += ki * errorSum;
@@ -55,7 +52,7 @@ void loop() {
   delay(dt * 1000); 
 }
 void handleEncoderInterrupt() {
-  encoderTicks++;
+  encoderCount++;
   }
 
 
